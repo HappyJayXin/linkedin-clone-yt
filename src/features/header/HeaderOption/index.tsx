@@ -1,16 +1,18 @@
-import React from 'react';
+import { Avatar } from '@material-ui/core';
 import styles from './styles.module.css';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 type Props = {
-  Icon?: any,
+  avatar?: string,
+  Icon?: typeof SvgIcon,
   title: string
 }
 
-// TODO: 57:49 avatar
-const HeaderOption = ({ Icon, title }: Props) => {
+const HeaderOption = ({ avatar, Icon, title }: Props) => {
   return (
     <div className={styles.headerOption}>
       {Icon && <Icon className={styles.headerOption__icon} />}
+      {avatar && <Avatar className={styles.headerOption__icon} />}
       <h3 className={styles.headerOption__title }>{title}</h3>
     </div>
   )
