@@ -3,6 +3,7 @@ import styles from "../styles/index.module.css";
 
 import Header from "../features/header";
 import SideBar from '../features/sideBar';
+import Feed from '../features/feed';
 
 const IndexPage: NextPage = () => {
   return (
@@ -12,7 +13,7 @@ const IndexPage: NextPage = () => {
       {/* App Body */}
       <div className={styles.app__body}>
         <SideBar />
-        {/* Feed */}
+        <Feed />
         {/* Widgets */}
       </div>
     </div>
