@@ -37,4 +37,7 @@
   display: none;
 }
 
-.feed__inputOptions {}
+.feed__inputOptions {
+  display: flex;
+  justify-content: space-evenly;
+}
