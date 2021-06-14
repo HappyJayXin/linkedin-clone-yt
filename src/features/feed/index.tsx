@@ -1,4 +1,5 @@
-import { useState, SyntheticEvent } from "react";
+import { useState, useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 import CreateIcon from "@material-ui/icons/Create";
 import ImageIcon from "@material-ui/icons/Image";
@@ -9,30 +10,47 @@ import CalendarViewDayIcon from "@material-ui/icons/CalendarViewDay";
 import styles from "./styles.module.css";
 import InputOption from "./InputOption";
 import Post from "./Post";
+import { fetchSnapshot, Data } from "./feedApi";
+
+interface IFormInput {
+  message: string;
+}
 
 const Feed = () => {
-  const [posts] = useState([{
-    name: 'Jay',
-    description: 'Description',
-    message: 'Message',
-    photoUrl: 'photoUrl'
-  }]);
+  const [posts, setPosts] = useState<Data>([]);
 
-  // TODO: start set post 2:17:32
-  const sendPosts = (e: SyntheticEvent) => {
-    e.preventDefault();
+  const { register, handleSubmit, reset } = useForm();
+
+  const onSubmit: SubmitHandler<IFormInput> = ({ message }) => {
+    const newPost = {
+      id: posts.length ? posts[posts.length - 1].id + 1 : 1,
+      data: {
+        name: 'Jay',
+        description: 'Description',
+        message,
+        photoUrl: 'photoUrl'
+      }
+    }
+    setPosts(prev => [...prev, newPost]);
+    reset();
   };
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const data: Data = await fetchSnapshot();
+      setPosts(data);
+    };
+    fetcher();
+  }, []);
 
   return (
     <div className={styles.feed}>
       <div className={styles.feed__inputContainer}>
         <div className={styles.feed__input}>
           <CreateIcon />
-          <form>
-            <input type="text" />
-            <button type="submit" onClick={sendPosts}>
-              Send
-            </button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input type="text" {...register("message")} />
+            <button type="submit" />
           </form>
         </div>
         <div className={styles.feed__inputOptions}>
@@ -47,9 +65,9 @@ const Feed = () => {
         </div>
       </div>
 
-      {posts.map(({ name, description, message, photoUrl }) => (
+      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
         <Post
-          key={name}
+          key={id}
           name={name}
           description={description}
           message={message}

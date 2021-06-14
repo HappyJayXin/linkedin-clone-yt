@@ -5,6 +5,7 @@ import Header from "../features/header";
 import SideBar from '../features/sideBar';
 import Feed from '../features/feed';
 
+// TODO: 2:36 start redux
 const IndexPage: NextPage = () => {
   return (
     <div className={styles.app}>
