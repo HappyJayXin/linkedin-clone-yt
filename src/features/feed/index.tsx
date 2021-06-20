@@ -10,7 +10,7 @@ import CalendarViewDayIcon from "@material-ui/icons/CalendarViewDay";
 import styles from "./styles.module.css";
 import InputOption from "./InputOption";
 import Post from "./Post";
-import { fetchSnapshot, Data } from "./feedApi";
+import { fetchSnapshot, Data } from "./feedAPI";
 
 interface IFormInput {
   message: string;
