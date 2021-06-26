@@ -12,11 +12,16 @@ import InputOption from "./InputOption";
 import Post from "./Post";
 import { fetchSnapshot, Data } from "./feedAPI";
 
+import { useAppSelector } from "../../app/hooks";
+import { selectUser } from "../userSlice";
+
 interface IFormInput {
   message: string;
 }
 
 const Feed = () => {
+  const user = useAppSelector(selectUser);
+
   const [posts, setPosts] = useState<Data>([]);
 
   const { register, handleSubmit, reset } = useForm();
@@ -25,13 +30,13 @@ const Feed = () => {
     const newPost = {
       id: posts.length ? posts[posts.length - 1].id + 1 : 1,
       data: {
-        name: 'Jay',
-        description: 'Description',
+        name: user?.name || "",
+        description: user?.email || 'this is test',
         message,
-        photoUrl: 'photoUrl'
-      }
-    }
-    setPosts(prev => [...prev, newPost]);
+        photoUrl: user?.profile || "photoUrl",
+      },
+    };
+    setPosts((prev) => [...prev, newPost]);
     reset();
   };
 

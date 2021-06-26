@@ -1,12 +1,14 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-import type { AppState, AppThunk } from '../../app/store'
+import type { AppState } from '../../app/store'
 
-export interface CounterState {
-  user: object | null;
+interface UserState {
+  name: string;
+  email: string;
+  profile: string;
 }
 
-const initialState: CounterState = {
+const initialState: { user: UserState | null } = {
   user: null
 }
 

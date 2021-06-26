@@ -2,6 +2,9 @@ import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "./styles.module.css";
 
+import { useAppDispatch } from "../../app/hooks";
+import { login } from "../userSlice";
+
 interface IFormInput {
   name: string;
   profile: string;
@@ -10,12 +13,23 @@ interface IFormInput {
 }
 
 const Login = () => {
+  const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm();
 
-  const registerHandle = () => {};
-
-  // TODO: 3:00:00 start loginToApp fn
-  const loginToApp: SubmitHandler<IFormInput> = () => {};
+  const loginToApp: SubmitHandler<IFormInput> = ({
+    email,
+    name,
+    profile,
+    password,
+  }) => {
+    if (email && name && profile && password) {
+      dispatch(login({
+        email,
+        name,
+        profile,
+      }));
+    }
+  };
 
   return (
     <div className={styles.login}>
@@ -51,7 +65,7 @@ const Login = () => {
 
       <p>
         Not a member ?
-        <span className={styles.login__register} onClick={registerHandle}>
+        <span className={styles.login__register}>
           Register Now
         </span>
       </p>

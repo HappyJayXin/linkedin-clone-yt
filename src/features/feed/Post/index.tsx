@@ -15,11 +15,12 @@ type Props = {
   photoUrl: string;
 };
 
+// TODO: 3:4148 start react forward
 const Post = ({ name, description, message, photoUrl }: Props) => {
   return (
     <div className={styles.post}>
       <div className={styles.post__head}>
-        <Avatar />
+        <Avatar src={photoUrl}>{name[0]}</Avatar>
         <div className={styles.post__info}>
           <h2>{name}</h2>
           <p>{description}</p>
