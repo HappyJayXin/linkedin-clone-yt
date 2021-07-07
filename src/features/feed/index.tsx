@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import FlipMove from "react-flip-move";
 
 import CreateIcon from "@material-ui/icons/Create";
 import ImageIcon from "@material-ui/icons/Image";
@@ -31,7 +32,7 @@ const Feed = () => {
       id: posts.length ? posts[posts.length - 1].id + 1 : 1,
       data: {
         name: user?.name || "",
-        description: user?.email || 'this is test',
+        description: user?.email || "this is test",
         message,
         photoUrl: user?.profile || "photoUrl",
       },
@@ -70,15 +71,17 @@ const Feed = () => {
         </div>
       </div>
 
-      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-        <Post
-          key={id}
-          name={name}
-          description={description}
-          message={message}
-          photoUrl={photoUrl}
-        />
-      ))}
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            message={message}
+            photoUrl={photoUrl}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 };
